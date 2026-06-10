@@ -34,7 +34,7 @@ export class UsersController {
 
   @Post('/signup')
   @HttpCode(HttpStatus.OK)
-  async create(
+  async signup(
     @Body() createUserDto: CreateUserDto,
     @Session() session: Record<string, string>,
   ) {
@@ -74,7 +74,7 @@ export class UsersController {
 
   @Post('/signout')
   @HttpCode(HttpStatus.OK)
-  logout(@Session() session: Record<string, any>) {
+  signout(@Session() session: Record<string, any>) {
     session.userId = null;
     session.name = null;
 
