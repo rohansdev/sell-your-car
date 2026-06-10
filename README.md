@@ -1,11 +1,17 @@
 # Sell Your Car API
 
-A polished NestJS backend demo for user authentication and car-report management, designed as a portfolio-ready example of a modern TypeScript API.
+A polished [NestJS](https://nestjs.com/) backend API App for:
+- User authentication.
+- Get estimated price for cars based on make, model, year & mileage.
+- Submit car sold reports.
+- Admin approves the submitted reports.
+
+This project is an example of a modern TypeScript API.
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 ## Overview
-This project showcases a small but practical backend service built with NestJS, TypeORM, and SQLite. It includes session-based authentication, validation, structured error handling, and a simple reports workflow suitable for portfolio presentation.
+This project showcases a small but practical backend service built with [NestJS](https://nestjs.com/), [TypeScript](https://www.typescriptlang.org/), TypeORM, and SQLite. It includes session-based authentication, validation, structured error handling, and a simple reports workflow.
 
 ## Key Features
 - User registration, sign-in, sign-out, and profile access
@@ -54,6 +60,11 @@ This project showcases a small but practical backend service built with NestJS, 
 
 ## Deployment Notes
 This project is ready to run on any Node.js hosting platform that supports a SQLite-backed NestJS service. In production, set DB_NAME to a writable SQLite path and start the compiled app with pnpm start:prod.
+
+## Official Resources
+- [NestJS Documentation](https://docs.nestjs.com/)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [TypeORM Documentation](https://typeorm.io/)
 
 ## License
 Yes — MIT is a sensible choice for this repository.
