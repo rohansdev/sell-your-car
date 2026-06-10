@@ -1,0 +1,38 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { INestApplication } from '@nestjs/common';
+import request from 'supertest';
+import { App } from 'supertest/types';
+import { AppModule } from './../src/app.module';
+
+describe('Authentication System', () => {
+  let app: INestApplication<App>;
+
+  beforeEach(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleFixture.createNestApplication();
+    await app.init();
+  });
+
+  it('handles a signup request', async () => {
+    const email = `rohans2+${Date.now()}@domain.com`;
+
+    const res = await request(app.getHttpServer())
+      .post('/auth/signup')
+      .send({
+        name: 'Rohan',
+        email,
+        password: 'r@Hans#12y',
+      })
+      .expect(200);
+
+    expect(res.body).toEqual({});
+    expect(res.headers['set-cookie']).toBeDefined();
+  });
+
+  afterEach(async () => {
+    await app.close();
+  });
+});
