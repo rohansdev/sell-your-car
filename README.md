@@ -1,35 +1,64 @@
-<!--
- <p align="center">
- <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-</p> -->
+# Sell Your Car API
 
-## Description
-A <a href="http://nestjs.com" target="_blank">NestJS</a> (<a href="http://typescriptlang.org" target="_blank">TypeScript</a>) based API app that allow end users to sell their used cars and submit reports with admin approval. A progressive  framework for building efficient and scalable server-side applications.
+A polished NestJS backend demo for user authentication and car-report management, designed as a portfolio-ready example of a modern TypeScript API.
 
-## Project setup
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
--- Later
+## Overview
+This project showcases a small but practical backend service built with NestJS, TypeORM, and SQLite. It includes session-based authentication, validation, structured error handling, and a simple reports workflow suitable for portfolio presentation.
 
-## Compile and run the project
+## Key Features
+- User registration, sign-in, sign-out, and profile access
+- Session-based authentication with route protection
+- Custom current-user interception and response serialization
+- CRUD-style report endpoints for the car-report workflow
+- Input validation and clean exception handling
+- Logging middleware for development visibility
 
--- Later
+## Tech Stack
+- NestJS 11
+- TypeScript 5.7
+- TypeORM 1.0
+- better-sqlite3 12.10
+- Express Session
+- class-validator + class-transformer
+- Jest + Nest Testing Utilities
+- ESLint + Prettier
+- pnpm
 
-## Deployment
+## Getting Started
+1. Install dependencies:
+   pnpm install
+2. Create or update your environment file if needed:
+   DB_NAME=db.sqlite
+3. Start the development server:
+   pnpm start
 
--- Later
+## Useful Commands
+- Development mode: pnpm start
+- Watch mode: pnpm start:dev
+- Production build: pnpm build
+- Test suite: pnpm test
+- End-to-end tests: pnpm test:e2e
 
-## Resources
+## API Highlights
+- POST /auth/signup — create a new user
+- POST /auth/signin — sign in and create a session
+- GET /auth/profile — fetch the authenticated profile
+- POST /auth/signout — clear the session
+- GET /reports — list reports
+- POST /reports — create a report
+- GET /reports/:id — fetch one report
+- PATCH /reports/:id — update a report
+- DELETE /reports/:id — remove a report
 
--- Later
+## Deployment Notes
+This project is ready to run on any Node.js hosting platform that supports a SQLite-backed NestJS service. In production, set DB_NAME to a writable SQLite path and start the compiled app with pnpm start:prod.
 
-## Support
+## License
+Yes — MIT is a sensible choice for this repository.
 
--- Later
+It is a permissive, widely recognized open-source license that works well for public portfolio projects because it allows others to view, learn from, and reuse the code with minimal restrictions. The included LICENSE file matches this choice.
 
-## Stay in touch
-
--- Later
-
-- Author - [Rohan Sehgal]
-  <!-- - Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec) -->
-  <!-- - Upwork - [https://nestjs.com](https://nestjs.com/) -->
+## Contact
+Rohan Sehgal

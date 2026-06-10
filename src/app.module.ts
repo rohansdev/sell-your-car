@@ -25,10 +25,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       useFactory: (config: ConfigService) => {
         return {
           type: 'better-sqlite3',
-          database: config.get<string>('DB_NAME'),
+          database: config.get<string>('DB_NAME') ?? 'db.sqlite',
           synchronize: true,
-          entities: [__dirname + '/**/*.entity{.ts,.js}'],
-          // autoLoadEntities: true,
+          autoLoadEntities: true,
           enableWAL: true,
           statementCacheSize: 100,
         };
@@ -36,9 +35,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     }),
     /* TypeOrmModule.forRoot({
       type: 'better-sqlite3',
-      database: path.resolve(__dirname, '..', 'db.sqlite'), // 'db.sqlite',
-      entities: [__dirname + '/** /*.entity{.ts,.js}'],
-      // autoLoadEntities: true,
+      database: path.resolve(__dirname, '..', 'db.sqlite'),
+      autoLoadEntities: true,
       synchronize: true,
       enableWAL: true,
       statementCacheSize: 100,
