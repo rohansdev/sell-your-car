@@ -1,6 +1,7 @@
 # Sell Your Car API
 
-A polished [NestJS](https://nestjs.com/) backend API App for:
+A polished <a href="https://nestjs.com/" target="_blank" rel="nofollow">NestJS</a> backend API App for:
+
 - User authentication.
 - Get estimated price for cars based on make, model, year & mileage.
 - Submit car sold reports.
@@ -11,9 +12,11 @@ This project is an example of a modern TypeScript API.
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 ## Overview
-This project showcases a small but practical backend service built with [NestJS](https://nestjs.com/), [TypeScript](https://www.typescriptlang.org/), TypeORM, and SQLite. It includes session-based authentication, validation, structured error handling, and a simple reports workflow.
+
+This project showcases a small but practical backend service built with <a href="https://nestjs.com/" target="_blank" rel="nofollow">NestJS</a>, <a href="https://typescriptlang.org/" target="_blank" rel="nofollow">TypeScript</a>, TypeORM, and SQLite. It includes session-based authentication, validation, structured error handling, and a simple reports workflow.
 
 ## Key Features
+
 - User registration, sign-in, sign-out, and profile access
 - Session-based authentication with route protection
 - Custom current-user interception and response serialization
@@ -22,6 +25,7 @@ This project showcases a small but practical backend service built with [NestJS]
 - Logging middleware for development visibility
 
 ## Tech Stack
+
 - NestJS 11
 - TypeScript 5.7
 - TypeORM 1.0
@@ -33,6 +37,7 @@ This project showcases a small but practical backend service built with [NestJS]
 - pnpm
 
 ## Getting Started
+
 1. Install dependencies:
    pnpm install
 2. Create or update your environment file if needed:
@@ -41,6 +46,7 @@ This project showcases a small but practical backend service built with [NestJS]
    pnpm start
 
 ## Useful Commands
+
 - Development mode: pnpm start
 - Watch mode: pnpm start:dev
 - Production build: pnpm build
@@ -48,6 +54,7 @@ This project showcases a small but practical backend service built with [NestJS]
 - End-to-end tests: pnpm test:e2e
 
 ## API Highlights
+
 - POST /auth/signup — create a new user
 - POST /auth/signin — sign in and create a session
 - GET /auth/profile — fetch the authenticated profile
@@ -59,17 +66,21 @@ This project showcases a small but practical backend service built with [NestJS]
 - DELETE /reports/:id — remove a report
 
 ## Deployment Notes
+
 This project is ready to run on any Node.js hosting platform that supports a SQLite-backed NestJS service. In production, set DB_NAME to a writable SQLite path and start the compiled app with pnpm start:prod.
 
 ## Official Resources
-- [NestJS Documentation](https://docs.nestjs.com/)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
-- [TypeORM Documentation](https://typeorm.io/)
+
+- <a href="https://docs.nestjs.com/" target="_blank" rel="nofollow">NestJS Documentation</a>
+- <a href="https://typescriptlang.org/docs" target="_blank" rel="nofollow">TypeScript Documentation</a>
+- <a href="https://typeorm.io/" target="_blank" rel="nofollow">TypeORM Documentation</a>
 
 ## License
+
 Yes — MIT is a sensible choice for this repository.
 
 It is a permissive, widely recognized open-source license that works well for public portfolio projects because it allows others to view, learn from, and reuse the code with minimal restrictions. The included LICENSE file matches this choice.
 
 ## Contact
+
 Rohan Sehgal
