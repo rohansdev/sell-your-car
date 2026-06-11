@@ -15,6 +15,9 @@ export class User {
   @Column({ type: 'varchar', length: 200 })
   password!: string;
 
+  @Column({ type: 'boolean', default: false })
+  isAdmin!: boolean;
+
   @OneToMany(() => Report, (report) => report.user)
   reports: Report[];
 }
