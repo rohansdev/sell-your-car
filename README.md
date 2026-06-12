@@ -61,12 +61,17 @@ This project is ready to run locally for development or testing with minimal set
    Example values:
    ```env
    COOKIE_KEY=super-secret-session-key
+   DB_NAME=db.sqlite (development)
    ```
 3. Start the development server
    ```bash
    pnpm start:dev
    ```
-4. Run migrations (required on a fresh database)
+4. Generate migrations (required on a fresh database)
+   ```bash
+   pnpm typeorm migration:generate migrations/your-migration-name -d data-source.js
+   ```
+5. Run migrations (required on a fresh database)
    ```bash
    pnpm typeorm migration:run
    ```
@@ -88,7 +93,7 @@ pnpm typeorm migration:revert
 To generate a new migration after changing entities:
 
 ```bash
-pnpm typeorm migration:generate migrations/YourMigrationName
+pnpm typeorm migration:generate migrations/your-migration-name -d data-source.js
 ```
 
 ## Current API routes
