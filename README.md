@@ -1,30 +1,30 @@
 # Sell Your Car API
 
-A polished <a href="https://nestjs.com/" target="_blank" rel="nofollow">NestJS</a> backend API App for:
-
-- User authentication.
-- Get estimated price for cars based on make, model, year & mileage.
-- Submit car sold reports.
-- Admin approves the submitted reports.
-
-This project is an example of a modern TypeScript API.
+A polished NestJS portfolio project that demonstrates practical backend development skills: secure session authentication, SQLite-backed persistence, TypeORM migrations, request validation, and an admin approval workflow for car reports.
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
-## Overview
+## Why this project stands out
 
-This project showcases a small but practical backend service built with <a href="https://nestjs.com/" target="_blank" rel="nofollow">NestJS</a>, <a href="https://typescriptlang.org/" target="_blank" rel="nofollow">TypeScript</a>, TypeORM, and SQLite. It includes session-based authentication, validation, structured error handling, and a simple reports workflow.
+This repository highlights backend capabilities that matter in real-world applications:
 
-## Key Features
+- Session-based authentication and protected routes
+- TypeORM entity modeling with SQLite persistence
+- Database migrations and CLI-based schema evolution
+- Request validation and clean API responses
+- A complete report flow from submission to approval
 
-- User registration, sign-in, sign-out, and profile access
-- Session-based authentication with route protection
-- Custom current-user interception and response serialization
-- CRUD-style report endpoints for the car-report workflow
-- Input validation and clean exception handling
-- Logging middleware for development visibility
+## What this project does
 
-## Tech Stack
+The API currently supports:
+
+- Session-based authentication for users
+- CRUD endpoints for users and reports
+- Car price estimate queries based on make, model, year, mileage, and location
+- Admin approval flow for reports
+- SQLite-backed persistence with TypeORM migrations
+
+## Tech stack
 
 - NestJS 11
 - TypeScript 5.7
@@ -33,54 +33,354 @@ This project showcases a small but practical backend service built with <a href=
 - Express Session
 - class-validator + class-transformer
 - Jest + Nest Testing Utilities
-- ESLint + Prettier
 - pnpm
 
-## Getting Started
+## Portfolio highlights
 
-1. Install dependencies:
+This project is a strong example of how to:
+
+- building a REST API with a clean controller/service/module structure
+- handling authentication and session state in a real backend flow
+- applying validation and DTOs for safer request handling
+- managing schema changes through TypeORM migrations
+- creating documentation that is easy for reviewers and collaborators to understand
+
+## Quick start
+
+This project is ready to run locally for development or testing with minimal setup.
+
+1. Install dependencies
+   ```bash
    pnpm install
-2. Create or update your environment file if needed:
-   DB_NAME=db.sqlite
-3. Start the development server:
-   pnpm start
+   ```
+2. Create local environment files for development and testing:
+   ```bash
+   .env.development
+   .env.test
+   ```
+   Example values:
+   ```env
+   COOKIE_KEY=super-secret-session-key
+   ```
+3. Start the development server
+   ```bash
+   pnpm start:dev
+   ```
+4. Run migrations (required on a fresh database)
+   ```bash
+   pnpm typeorm migration:run
+   ```
 
-## Useful Commands
+> The development configuration in `ormconfig.js` uses SQLite (`db.sqlite`). The test configuration uses `test.sqlite`.
 
-- Development mode: pnpm start
-- Watch mode: pnpm start:dev
-- Production build: pnpm build
-- Test suite: pnpm test
-- End-to-end tests: pnpm test:e2e
+## TypeORM database and migrations
 
-## API Highlights
+The project already contains one migration file in `migrations/1781268155806-initial-schema.js`.
 
-- POST /auth/signup — create a new user
-- POST /auth/signin — sign in and create a session
-- GET /auth/profile — fetch the authenticated profile
-- POST /auth/signout — clear the session
-- GET /reports — list reports
-- POST /reports — create a report
-- GET /reports/:id — fetch one report
-- PATCH /reports/:id — update a report
-- DELETE /reports/:id — remove a report
+### Useful CLI commands
 
-## Deployment Notes
+```bash
+pnpm typeorm migration:run
+pnpm typeorm migration:show
+pnpm typeorm migration:revert
+```
 
-This project is ready to run on any Node.js hosting platform that supports a SQLite-backed NestJS service. In production, set DB_NAME to a writable SQLite path and start the compiled app with pnpm start:prod.
+To generate a new migration after changing entities:
 
-## Official Resources
+```bash
+pnpm typeorm migration:generate migrations/YourMigrationName
+```
 
-- <a href="https://docs.nestjs.com/" target="_blank" rel="nofollow">NestJS Documentation</a>
-- <a href="https://typescriptlang.org/docs" target="_blank" rel="nofollow">TypeScript Documentation</a>
-- <a href="https://typeorm.io/" target="_blank" rel="nofollow">TypeORM Documentation</a>
+## Current API routes
+
+### 1) Root health check
+
+```http
+GET /
+```
+
+Example:
+
+```bash
+curl http://localhost:3000/
+```
+
+Expected response:
+
+```json
+"Hello World!"
+```
+
+---
+
+### 2) Create a user account
+
+```http
+POST /auth/signup
+```
+
+Sample JSON body:
+
+```json
+{
+  "name": "Ava Carter",
+  "email": "ava@example.com",
+  "password": "StrongPass!23",
+  "isAdmin": false
+}
+```
+
+Example:
+
+```bash
+curl -X POST http://localhost:3000/auth/signup \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Ava Carter","email":"ava@example.com","password":"StrongPass!23","isAdmin":false}'
+```
+
+---
+
+### 3) Sign in
+
+```http
+POST /auth/signin
+```
+
+Sample JSON body:
+
+```json
+{
+  "email": "ava@example.com",
+  "password": "StrongPass!23"
+}
+```
+
+Example:
+
+```bash
+curl -X POST http://localhost:3000/auth/signin \
+  -H "Content-Type: application/json" \
+  -d '{"email":"ava@example.com","password":"StrongPass!23"}'
+```
+
+---
+
+### 4) Fetch the current logged-in user profile
+
+```http
+GET /auth/profile
+```
+
+Use the session cookie returned by the sign-in/signup request.
+
+Example:
+
+```bash
+curl http://localhost:3000/auth/profile \
+  -b "connect.sid=<session-cookie>"
+```
+
+---
+
+### 5) Sign out
+
+```http
+POST /auth/signout
+```
+
+Example:
+
+```bash
+curl -X POST http://localhost:3000/auth/signout \
+  -b "connect.sid=<session-cookie>"
+```
+
+---
+
+### 6) List all users
+
+```http
+GET /auth
+```
+
+Example:
+
+```bash
+curl http://localhost:3000/auth
+```
+
+---
+
+### 7) Get one user by id
+
+```http
+GET /auth/:id
+```
+
+Example:
+
+```bash
+curl http://localhost:3000/auth/1
+```
+
+---
+
+### 8) Update a user
+
+```http
+PATCH /auth/:id
+```
+
+Sample JSON body:
+
+```json
+{
+  "name": "Ava Carter Updated",
+  "isAdmin": true
+}
+```
+
+Example:
+
+```bash
+curl -X PATCH http://localhost:3000/auth/1 \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Ava Carter Updated","isAdmin":true}'
+```
+
+---
+
+### 9) Delete a user
+
+```http
+DELETE /auth/:id
+```
+
+Example:
+
+```bash
+curl -X DELETE http://localhost:3000/auth/1
+```
+
+---
+
+### 10) Create a car report
+
+```http
+POST /reports
+```
+
+Sample JSON body:
+
+```json
+{
+  "make": "Toyota",
+  "model": "Corolla",
+  "year": 2020,
+  "mileage": 31000,
+  "price": 16500,
+  "latitude": 40.7128,
+  "longitude": -74.006
+}
+```
+
+Example:
+
+```bash
+curl -X POST http://localhost:3000/reports \
+  -H "Content-Type: application/json" \
+  -b "connect.sid=<session-cookie>" \
+  -d '{"make":"Toyota","model":"Corolla","year":2020,"mileage":31000,"price":16500,"latitude":40.7128,"longitude":-74.006}'
+```
+
+---
+
+### 11) List all reports
+
+```http
+GET /reports
+```
+
+Example:
+
+```bash
+curl http://localhost:3000/reports
+```
+
+---
+
+### 12) Estimate a car price from matching reports
+
+```http
+GET /reports/estimate?make=Toyota&model=Corolla&year=2020&mileage=31000&latitude=40.7128&longitude=-74.006
+```
+
+Example:
+
+```bash
+curl "http://localhost:3000/reports/estimate?make=Toyota&model=Corolla&year=2020&mileage=31000&latitude=40.7128&longitude=-74.006"
+```
+
+---
+
+### 13) Get one report by id
+
+```http
+GET /reports/:id
+```
+
+Example:
+
+```bash
+curl http://localhost:3000/reports/1
+```
+
+---
+
+### 14) Approve or reject a report (admin only)
+
+```http
+PATCH /reports/:id
+```
+
+Sample JSON body:
+
+```json
+{
+  "approved": true
+}
+```
+
+Example:
+
+```bash
+curl -X PATCH http://localhost:3000/reports/1 \
+  -H "Content-Type: application/json" \
+  -b "connect.sid=<admin-session-cookie>" \
+  -d '{"approved":true}'
+```
+
+---
+
+### 15) Delete a report
+
+```http
+DELETE /reports/:id
+```
+
+Example:
+
+```bash
+curl -X DELETE http://localhost:3000/reports/1 \
+  -b "connect.sid=<session-cookie>"
+```
+
+## Notes
+
+- The session cookie is created during `POST /auth/signup` and `POST /auth/signin`.
+- Admin-only routes are protected in the code and should be used with an admin account.
+- SQLite database files are created in the project root as `db.sqlite` (development) and `test.sqlite` (tests).
 
 ## License
 
-Yes — MIT is a sensible choice for this repository.
-
-It is a permissive, widely recognized open-source license that works well for public portfolio projects because it allows others to view, learn from, and reuse the code with minimal restrictions. The included LICENSE file matches this choice.
-
-## Contact
-
-Rohan Sehgal
+MIT
