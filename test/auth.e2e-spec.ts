@@ -25,6 +25,7 @@ describe('Authentication System', () => {
         name: 'Rohan',
         email,
         password: 'r@Hans#12y',
+        isAdmin: false,
       })
       .expect(200);
 

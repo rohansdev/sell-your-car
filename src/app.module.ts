@@ -11,6 +11,8 @@ import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 // import { UsersController } from './users/users.controller';
 // import { ReportsController } from './reports/reports.controller';
+// import * as ormconfig from '../ormconfig.js';
+const ormconfig = require('../ormconfig.js');
 
 @Module({
   imports: [
@@ -20,27 +22,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
-        return {
-          type: 'better-sqlite3',
-          database: config.get<string>('DB_NAME') ?? 'db.sqlite',
-          synchronize: true,
-          autoLoadEntities: true,
-          enableWAL: true,
-          statementCacheSize: 100,
-        };
-      },
-    }),
-    /* TypeOrmModule.forRoot({
-      type: 'better-sqlite3',
-      database: path.resolve(__dirname, '..', 'db.sqlite'),
-      autoLoadEntities: true,
-      synchronize: true,
-      enableWAL: true,
-      statementCacheSize: 100,
-    }), */
+    TypeOrmModule.forRoot(ormconfig),
   ],
   controllers: [AppController],
   providers: [
@@ -54,11 +36,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   ],
 })
 export class AppModule {
+  constructor(private readonly configService: ConfigService) {}
+
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(
         session({
-          secret: 's4er5w4d5f478e56',
+          secret: this.configService.get('COOKIE_KEY') as string,
           resave: false,
           saveUninitialized: false,
           cookie: {
